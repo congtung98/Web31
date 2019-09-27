@@ -11,7 +11,7 @@ function generate(testLengthArray){
   }
   function sort(input) {
     //Bubble sort
-      let len = input.length;
+    var len = input.length;
       for (let i = 0; i < len; i++) {
           for (let j = 0; j < len; j++) {
               if (input[j] > input[j + 1]) {
@@ -23,20 +23,33 @@ function generate(testLengthArray){
       }
       return input;
     }
+  let arr = [];
   for (let i = 0; i < testLengthArray.length; i++) { 
-    let arr = [];
+    let input = [];
     for ( let j = 0; j < testLengthArray[i]; j++ ) {   
       let randomNumber = Math.floor(Math.random() * 1000);
-      arr.push(randomNumber);
+      input.push(randomNumber);
     }
-    let randomTarget = Math.floor(Math.random() * 1000);
-    testLengthArray[i] = {
-        input: sort(arr),
+    input = sort(input);
+    let randomTarget;
+    if (i === 0) {
+      randomTarget = input[0];
+    }
+    else if (i === testLengthArray.length - 1) {
+      randomTarget = input[input.length - 1];
+    }
+    else {
+      let randomTarget = Math.floor(Math.random() * 1000);
+    }
+    let output = search(input, randomTarget)
+    let item = {
+        input: input,
         target: randomTarget,
-        output: search(arr, randomTarget)
+        output: output
     }
+    arr.push(item)
   }
-  return testLengthArray;
+  return arr;
 }
 
 module.exports = generate
